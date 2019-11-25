@@ -8,21 +8,136 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/QuadBuilder.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2760">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+              <folding>
+                <marker date="1574711644297" expanded="true" signature="6:92" ph="..." />
+                <marker date="1574711644297" expanded="true" signature="134:7373" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="201:299" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="327:382" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="453:1143" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="485:639" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="672:820" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="847:997" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="1186:5751" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="1677:1841" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="1912:2164" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="2177:2393" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="2888:4900" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="4910:5241" ph="/* normals = new Vector3[] ... */" />
+                <marker date="1574711644297" expanded="true" signature="5761:5926" ph="/* batching all the triangles together makes it easier for unity to handle the drawing, also have less draw calls ... */" />
+                <marker date="1574711644297" expanded="true" signature="5950:6974" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="6169:6347" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="6356:6572" ph="/* after creating the combine array with all the previously created quads we give it a meshFilter, a mesh rendere ... */" />
+                <marker date="1574711644297" expanded="true" signature="7050:7311" ph="{...}" />
+                <marker date="1574711644297" expanded="true" signature="7337:7371" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/ChunkGenerator.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="58" column="52" lean-forward="true" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
+              <folding>
+                <marker date="1574713274995" expanded="true" signature="6:92" ph="..." />
+                <marker date="1574713274995" expanded="true" signature="137:2830" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="263:1517" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="360:696" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="414:686" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="476:672" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="745:1006" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="799:996" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="861:982" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="1043:1483" ph="/* for (int z = 0; z &lt; sizeZ; z++) ... */" />
+                <marker date="1574713274995" expanded="true" signature="1543:1603" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="1609:1774" ph="/* batching all the triangles together makes it easier for unity to handle the drawing, also have less draw calls ... */" />
+                <marker date="1574713274995" expanded="true" signature="1798:2827" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="2017:2195" ph="{...}" />
+                <marker date="1574713274995" expanded="true" signature="2204:2420" ph="/* after creating the combine array with all the previously created quads we give it a meshFilter, a mesh rendere ... */" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Assets/Scripts/Block.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3451">
+              <caret line="203" selection-start-line="203" selection-end-line="203" />
+              <folding>
+                <marker date="1574713083959" expanded="true" signature="6:92" ph="..." />
+                <marker date="1574713083959" expanded="true" signature="112:7465" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="134:232" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="260:315" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="518:1208" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="550:704" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="737:885" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="912:1062" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="1300:1447" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="1493:6100" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="1984:2148" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="2219:2471" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="2484:2700" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="3195:5207" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="5217:5548" ph="/* normals = new Vector3[] ... */" />
+                <marker date="1574713083959" expanded="true" signature="6128:7065" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6230:6291" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6383:6443" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6535:6594" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6686:6748" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6841:6901" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="6994:7055" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="7141:7445" ph="{...}" />
+                <marker date="1574713083959" expanded="true" signature="7249:7350" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/LevelManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Block.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/QuadBuilder.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CoordsMapping.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ChunkGenerator.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/LevelManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CoordsMapping.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ProcessTextureAtlas.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/QuadBuilder.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Block.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ChunkGenerator.cs" />
       </list>
     </option>
   </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="1" />
+    <option name="width" value="1323" />
+    <option name="height" value="1047" />
+  </component>
   <component name="ProjectId" id="1TvqSiQC6pphRjKwwEFSptA58s0" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes />
+  </component>
   <component name="PropertiesComponent">
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
@@ -69,8 +184,52 @@
       <option name="presentableId" value="Default" />
       <updated>1574350918223</updated>
       <workItem from="1574350919626" duration="888000" />
+      <workItem from="1574689489100" duration="53000" />
+      <workItem from="1574689841399" duration="13699000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="13752000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="1" width="1323" height="1047" extended-state="0" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Unity" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="NuGet" order="7" weight="0.32905984" />
+      <window_info anchor="bottom" id="Performance Profiler" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Unit Tests" order="12" />
+      <window_info anchor="bottom" id="Terminal" order="13" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.32905984" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Unit Tests Coverage" order="5" />
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -82,7 +241,28 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
           </value>
         </entry>
       </map>
@@ -100,5 +280,118 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Assets/LevelManager.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="99" selection-start-line="20" selection-start-column="99" selection-end-line="20" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/ProcessTextureAtlas.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/CoordsMapping.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <marker date="1574699900139" expanded="true" signature="6:92" ph="..." />
+            <marker date="1574699900139" expanded="true" signature="178:183" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/QuadBuilder.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2760">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding>
+            <marker date="1574711644297" expanded="true" signature="6:92" ph="..." />
+            <marker date="1574711644297" expanded="true" signature="134:7373" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="201:299" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="327:382" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="453:1143" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="485:639" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="672:820" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="847:997" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="1186:5751" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="1677:1841" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="1912:2164" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="2177:2393" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="2888:4900" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="4910:5241" ph="/* normals = new Vector3[] ... */" />
+            <marker date="1574711644297" expanded="true" signature="5761:5926" ph="/* batching all the triangles together makes it easier for unity to handle the drawing, also have less draw calls ... */" />
+            <marker date="1574711644297" expanded="true" signature="5950:6974" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="6169:6347" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="6356:6572" ph="/* after creating the combine array with all the previously created quads we give it a meshFilter, a mesh rendere ... */" />
+            <marker date="1574711644297" expanded="true" signature="7050:7311" ph="{...}" />
+            <marker date="1574711644297" expanded="true" signature="7337:7371" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/Block.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3451">
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
+          <folding>
+            <marker date="1574713083959" expanded="true" signature="6:92" ph="..." />
+            <marker date="1574713083959" expanded="true" signature="112:7465" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="134:232" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="260:315" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="518:1208" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="550:704" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="737:885" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="912:1062" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="1300:1447" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="1493:6100" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="1984:2148" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="2219:2471" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="2484:2700" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="3195:5207" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="5217:5548" ph="/* normals = new Vector3[] ... */" />
+            <marker date="1574713083959" expanded="true" signature="6128:7065" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6230:6291" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6383:6443" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6535:6594" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6686:6748" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6841:6901" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="6994:7055" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="7141:7445" ph="{...}" />
+            <marker date="1574713083959" expanded="true" signature="7249:7350" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/ChunkGenerator.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="58" column="52" lean-forward="true" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
+          <folding>
+            <marker date="1574713274995" expanded="true" signature="6:92" ph="..." />
+            <marker date="1574713274995" expanded="true" signature="137:2830" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="263:1517" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="360:696" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="414:686" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="476:672" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="745:1006" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="799:996" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="861:982" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="1043:1483" ph="/* for (int z = 0; z &lt; sizeZ; z++) ... */" />
+            <marker date="1574713274995" expanded="true" signature="1543:1603" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="1609:1774" ph="/* batching all the triangles together makes it easier for unity to handle the drawing, also have less draw calls ... */" />
+            <marker date="1574713274995" expanded="true" signature="1798:2827" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="2017:2195" ph="{...}" />
+            <marker date="1574713274995" expanded="true" signature="2204:2420" ph="/* after creating the combine array with all the previously created quads we give it a meshFilter, a mesh rendere ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
