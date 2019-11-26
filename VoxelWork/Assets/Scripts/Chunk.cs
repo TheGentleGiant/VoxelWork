@@ -2,34 +2,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.WSA;
+using Random = System.Random;
 
-public class ChunkGenerator : MonoBehaviour
+public class Chunk
 {
     public Material _material;
     public Block[,,] _chunkData;
-    IEnumerator BuildChunk(int sizeX, int sizeY, int sizeZ)
+    public GameObject _chunk;
+    void BuildChunk()
     {
-        _chunkData = new Block[sizeX,sizeY,sizeZ];
-        for (int z = 0; z < sizeZ; z++)
+        _chunkData = new Block[World.chunkSize,World.chunkSize,World.chunkSize];
+        /*Create Chunk Data*/
+        for (int z = 0; z < World.chunkSize; z++)
         {
-            for (int y = 0; y < sizeY; y++)
+            for (int y = 0; y < World.chunkSize; y++)
             {
-                for (int x = 0; x < sizeX; x++)
+                for (int x = 0; x < World.chunkSize; x++)
                 {
                     Vector3 pos = new Vector3(x,y,z);
-                    _chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, this.gameObject, _material);
+                    if (UnityEngine.Random.Range(0,100) < 50)
+                    {
+                        _chunkData[x, y, z] = new Block(Block.BlockType.DIRT, pos, _chunk.gameObject, this);
+                    }
+                    else
+                    {
+                        _chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, _chunk.gameObject, this);
+                    }
                 }
             }
         }
-        
-        for (int z = 0; z < sizeZ; z++)
+       
+       
+      
+    }
+
+    public void DrawChunk()
+    {
+        /*Draw Chunk*/
+        for (int z = 0; z < World.chunkSize; z++)
         {
-            for (int y = 0; y < sizeY; y++)
+            for (int y = 0; y < World.chunkSize; y++)
             {
-                for (int x = 0; x < sizeX; x++)
+                for (int x = 0; x < World.chunkSize; x++)
                 {
                     _chunkData[x,y,z].Draw();
-                    yield return null;
                 }
             }
         }
@@ -47,19 +64,23 @@ public class ChunkGenerator : MonoBehaviour
                 }
             }
         }*/
-        CombineQuads();    
+        CombineQuads(); 
     }
 
-    private void Start()
+    public Chunk(Vector3 position, Material material)
     {
-        StartCoroutine(BuildChunk(10, 10, 10));
+        _chunk = new GameObject(World.BuildChunkName(position));
+        _chunk.transform.position = position;
+        _material = material;
+        BuildChunk();
     }
+    
 
     //batching all the triangles together makes it easier for unity to handle the drawing, also have less draw calls
     //doing this by combining all the quads together
     void CombineQuads()
     {
-        MeshFilter[] _meshFilters = GetComponentsInChildren<MeshFilter>();
+        MeshFilter[] _meshFilters = _chunk.GetComponentsInChildren<MeshFilter>();
         CombineInstance[] _combine = new CombineInstance[_meshFilters.Length];
         int i = 0;
         while (i < _meshFilters.Length)
@@ -70,15 +91,15 @@ public class ChunkGenerator : MonoBehaviour
         }
         //after creating the combine array with all the previously created quads we give it a meshFilter, a mesh renderer
         //and being the case that we don't need the quads to be rendered any more we can destroy them;
-        MeshFilter _mf = (MeshFilter) this.gameObject.AddComponent(typeof(MeshFilter));
+        MeshFilter _mf = (MeshFilter) _chunk.gameObject.AddComponent(typeof(MeshFilter));
         _mf.mesh = new Mesh();
         _mf.mesh.CombineMeshes(_combine);
 
-        MeshRenderer _meshRenderer = this.gameObject.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+        MeshRenderer _meshRenderer = _chunk.gameObject.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
         _meshRenderer.material = _material;
 
-        foreach (Transform quad in this.transform)
-            Destroy(quad.gameObject);
+        foreach (Transform quad in _chunk.transform)
+            GameObject.Destroy(quad.gameObject);
     }
 
 }

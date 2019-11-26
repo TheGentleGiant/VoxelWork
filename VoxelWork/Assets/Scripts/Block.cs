@@ -19,14 +19,15 @@ public class Block
     {
         GRASS,
         DIRT,
-        STONE
+        STONE, 
+        AIR,
     };
     
     private BlockType bType;
     private GameObject _parent;
     private Vector3 _position;
     private Material _material;
-
+    private Chunk _chunkOwner;
     public bool bIsSolid;
     
 
@@ -52,13 +53,21 @@ public class Block
 
     };
 
-    public Block(BlockType block, Vector3 position, GameObject parent, Material material)
+    public Block(BlockType block, Vector3 position, GameObject parent, Chunk chunk)
     {
         bType = block; 
         _position = position;
         _parent = parent;
-        _material = material;
-        bIsSolid = true;
+        _chunkOwner = chunk;
+        if (bType == BlockType.AIR)
+        {
+            bIsSolid = false;
+        }
+        else
+        {
+            bIsSolid = true;
+        }
+        
     }
     
         void CreateQuad(SideOfCube side)
@@ -173,13 +182,18 @@ public class Block
         quad.transform.position = _position;
         quad.transform.parent = _parent.transform;
         MeshFilter _meshFilter = (MeshFilter) quad.AddComponent(typeof(MeshFilter));
-        MeshRenderer _rend = quad.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+        /*After combining quads into a singular mesh we don't need a renderer for each single quad, one is added to the whole mesh already*/
+        //MeshRenderer _rend = quad.AddComponent(typeof(MeshRenderer)) as MeshRenderer;
+        //_rend.material = _material;
         _meshFilter.mesh = _mesh;
-        _rend.material = _material;
     }
 
         public void Draw()
         {
+            if (bType == BlockType.AIR)
+            {
+                return;
+            }
             if (!HasSolidNeighbor((int)_position.x, (int)_position.y, (int)_position.z +1)){
                 CreateQuad(SideOfCube.FRONT);
             }
@@ -200,14 +214,53 @@ public class Block
             }
         }
 
+
+        int ConvertBlockIndexToLocal(int i)
+        {
+            if (i == -1)
+            {
+                i = World.chunkSize - 1;
+            }else if (i == World.chunkSize)
+            {
+                i = 0;
+            }
+
+            return i;
+        }
         bool HasSolidNeighbor(int neighborX, int neighborY, int neighborZ)
         {
-            Block[,,] chunks = _parent.GetComponent<ChunkGenerator>()._chunkData;
+            Block[,,] chunks;
+            chunks = _chunkOwner._chunkData;
+            if (neighborX < 0|| neighborX >= World.chunkSize || neighborY < 0|| neighborY >= World.chunkSize|| neighborZ< 0|| neighborZ >= World.chunkSize )
+            {
+                Vector3 neighborChunkPosition = this._parent.transform.position +
+                                                new Vector3((neighborX - (int) _position.x) * World.chunkSize,
+                                                    (neighborY - (int) _position.y) * World.chunkSize,
+                                                    (neighborZ - (int) _position.z) * World.chunkSize);
+
+                string neighborName = World.BuildChunkName(neighborChunkPosition);
+
+                neighborX = ConvertBlockIndexToLocal(neighborX);
+                neighborY = ConvertBlockIndexToLocal(neighborY);
+                neighborZ = ConvertBlockIndexToLocal(neighborZ);
+
+                Chunk _neightborChunk;
+                if (World.chunks.TryGetValue(neighborName, out _neightborChunk))
+                {
+                    chunks = _neightborChunk._chunkData;
+                }
+                else
+                    return false;
+            }
+            else
+            {
+                chunks = _chunkOwner._chunkData;
+            }
             try
             {
                 return chunks[neighborX, neighborY, neighborZ].bIsSolid;
             }
-            catch (System.IndexOutOfRangeException ex) {}
+            catch (System.IndexOutOfRangeException) {}
 
             return false;
         }

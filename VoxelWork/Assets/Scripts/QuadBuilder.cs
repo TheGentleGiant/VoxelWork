@@ -6,7 +6,6 @@ using UnityEngine;
 public class QuadBuilder : MonoBehaviour
 {
     [SerializeField] private Material _mat;
-
     enum SideOfCube
     {
         BOTTOM,
