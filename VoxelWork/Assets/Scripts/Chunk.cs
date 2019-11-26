@@ -21,9 +21,15 @@ public class Chunk
                 for (int x = 0; x < World.chunkSize; x++)
                 {
                     Vector3 pos = new Vector3(x,y,z);
-                    if (UnityEngine.Random.Range(0,100) < 50)
+                    Vector3 position = _chunk.transform.position;
+                    int worldX = (int) (x + position.x);
+                    int worldY = (int) (y + position.y);
+                    int worldZ = (int) (z + position.z);
+                    
+                    //Debug.Log(GenerationUtils.GenerateHeight(worldX, worldZ));
+                    if (worldY <= GenerationUtils.GenerateHeight(worldX, worldZ))
                     {
-                        _chunkData[x, y, z] = new Block(Block.BlockType.DIRT, pos, _chunk.gameObject, this);
+                        _chunkData[x, y, z] = new Block(Block.BlockType.GRASS, pos, _chunk.gameObject, this);
                     }
                     else
                     {
