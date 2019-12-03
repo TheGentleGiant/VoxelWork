@@ -7,7 +7,7 @@ public class World : MonoBehaviour
     public static int chunkSize = 16;
     public Material textureAtlas;
     public static int columnHeight = 16;
-    public static int worldSize = 2;
+    public static int worldSize = 4;
 
     public static Dictionary<string, Chunk> chunks;
     void Start()

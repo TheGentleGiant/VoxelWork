@@ -27,9 +27,21 @@ public class Chunk
                     int worldZ = (int) (z + position.z);
                     
                     //Debug.Log(GenerationUtils.GenerateHeight(worldX, worldZ));
-                    if (worldY <= GenerationUtils.GenerateHeight(worldX, worldZ))
+                    if (GenerationUtils.BrownianMotion3D(worldX, worldY, worldZ) < 0.40f)
+                    {
+                        _chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, _chunk.gameObject, this);
+                    }
+                    else if (worldY <= GenerationUtils.GenerateStoneHeight(worldX, worldZ))
+                    {
+                        _chunkData[x, y, z] = new Block(Block.BlockType.STONE, pos, _chunk.gameObject, this);
+                    }
+                    else if (worldY == GenerationUtils.GenerateHeight(worldX, worldZ))
                     {
                         _chunkData[x, y, z] = new Block(Block.BlockType.GRASS, pos, _chunk.gameObject, this);
+                    }
+                    else if (worldY <= GenerationUtils.GenerateHeight(worldX, worldZ))
+                    {
+                        _chunkData[x, y, z] = new Block(Block.BlockType.DIRT, pos, _chunk.gameObject, this);
                     }
                     else
                     {

@@ -13,7 +13,12 @@ public class GenerationUtils
 
     public static int GenerateHeight(float x, float z)
     {
-        float _height = Map(0, maxHeight, 0, 1, BrownianMotion(x * increment, z *increment, octaves, persistence));
+        float _height = Map(0, maxHeight, 0, 1, BrownianMotion(x * increment , z *increment, octaves, persistence));
+        return (int) _height;
+    }
+    public static int GenerateStoneHeight(float x, float z)
+    {
+        float _height = Map(0, maxHeight-10, 0, 1, BrownianMotion(x * increment * 2, z *increment*2, octaves+1, persistence));
         return (int) _height;
     }
 
@@ -22,7 +27,7 @@ public class GenerationUtils
         return Mathf.Lerp(newMin, newMax, Mathf.InverseLerp(originalMin, originalMax, value));
     }
 
-    static float BrownianMotion(float x, float z, int octave, float persistence)
+    public static float BrownianMotion(float x, float z, int octave, float persistence)
     {
         float _total = 0f;
         float _frequency = 1f;
@@ -39,6 +44,23 @@ public class GenerationUtils
 
         return _total / maxValue;
     }
+
+    public static float BrownianMotion3D(float x, float y, float z)
+    {
+        float XY = BrownianMotion(x * increment * 10, y * increment*10, 3,  0.5f);
+        float YZ = BrownianMotion(y * increment *10, z * increment*10, 3,  0.5f);
+        float XZ = BrownianMotion(z * increment*10, x * increment*10, 3,  0.5f);
+
+        float YX = BrownianMotion(y * increment*10, x * increment*10, 3, 0.5f);
+        float ZY = BrownianMotion(z * increment*10, y * increment*10, 3, 0.5f);
+        float ZX = BrownianMotion(z * increment*10, x * increment*10, 3, 0.5f);
+
+        return (XY + YZ + XZ + YX + ZY + ZX) / 6.0f;
+
+
+    }
+    
+    
     
     
     
