@@ -8,6 +8,7 @@ public class World : MonoBehaviour
     public Material textureAtlas;
     public static int columnHeight = 16;
     public static int worldSize = 4;
+   // public GameObject PlayerPrefab;
 
     public static Dictionary<string, Chunk> chunks;
     void Start()
@@ -16,7 +17,8 @@ public class World : MonoBehaviour
         chunks = new Dictionary<string, Chunk>();
         this.transform.position = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
-        StartCoroutine(BuildWorld());
+        //Instantiate(PlayerPrefab, new Vector3(5, 160, 5), Quaternion.identity);
+        BuildWorld();
     }
 
 
@@ -45,7 +47,7 @@ public class World : MonoBehaviour
     }
 #pragma endregion
     
-    IEnumerator BuildWorld()
+    void BuildWorld()
     {
         for (int z = 0; z < worldSize; z++)
         {
@@ -64,7 +66,6 @@ public class World : MonoBehaviour
         foreach (KeyValuePair<string, Chunk> c in chunks)
         {
             c.Value.DrawChunk();
-            yield return null;
         }
     }
 }

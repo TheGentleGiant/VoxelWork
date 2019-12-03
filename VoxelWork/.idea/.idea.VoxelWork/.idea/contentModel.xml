@@ -12,6 +12,7 @@
           <e p="CoordsMapping.cs" t="Include" />
           <e p="GenerationUtils.cs" t="Include" />
           <e p="LevelManager.cs" t="Include" />
+          <e p="PlayerCharacter.cs" t="Include" />
           <e p="QuadBuilder.cs" t="Include" />
           <e p="World.cs" t="Include" />
         </e>

@@ -5,10 +5,10 @@ using UnityEngine;
 public class GenerationUtils
 {
     private static int maxHeight = 150;
-    private static float increment = 0.01f;
+    private static float increment = 0.005f;
     private static int octaves = 4;
     private static float persistence = 0.5f;
-    private static int repeat = 2;
+    private static int repeat = 0;
     
 
     public static int GenerateHeight(float x, float z)
@@ -18,7 +18,7 @@ public class GenerationUtils
     }
     public static int GenerateStoneHeight(float x, float z)
     {
-        float _height = Map(0, maxHeight-10, 0, 1, BrownianMotion(x * increment * 2, z *increment*2, octaves+1, persistence));
+        float _height = Map(0, maxHeight-20, 0, 1, BrownianMotion(x * increment * 2, z *increment*2, octaves+1, persistence));
         return (int) _height;
     }
 
@@ -35,8 +35,8 @@ public class GenerationUtils
         float maxValue = 0;
         for (int i = 0; i < octave; i++)
         {
-            //_total += (float)Perlin(x * _frequency, 0, z * _frequency) * _amplitude;
-            _total += Mathf.PerlinNoise(x *_frequency, z*_frequency) * _amplitude;
+            _total += Perlin(x * _frequency,z * _frequency, 0f) * _amplitude;
+            //_total += Mathf.PerlinNoise(x *_frequency, z*_frequency) * _amplitude;
             maxValue += _amplitude;
             _amplitude *= persistence;
             _frequency *= 2;
@@ -47,8 +47,8 @@ public class GenerationUtils
 
     public static float BrownianMotion3D(float x, float y, float z)
     {
-        float XY = BrownianMotion(x * increment * 10, y * increment*10, 3,  0.5f);
-        float YZ = BrownianMotion(y * increment *10, z * increment*10, 3,  0.5f);
+        float XY = BrownianMotion(x * increment*10, y * increment*10, 3,  0.5f);
+        float YZ = BrownianMotion(y * increment*10, z * increment*10, 3,  0.5f);
         float XZ = BrownianMotion(z * increment*10, x * increment*10, 3,  0.5f);
 
         float YX = BrownianMotion(y * increment*10, x * increment*10, 3, 0.5f);
@@ -56,18 +56,42 @@ public class GenerationUtils
         float ZX = BrownianMotion(z * increment*10, x * increment*10, 3, 0.5f);
 
         return (XY + YZ + XZ + YX + ZY + ZX) / 6.0f;
-
-
     }
+    public static float BrownianMotion3D(float x, float y, float z, float smoothing, int octaves)
+    {
+        float XY = BrownianMotion(x * smoothing, y * smoothing, octaves,  0.5f);
+        float YZ = BrownianMotion(y * smoothing, z * smoothing, octaves,  0.5f);
+        float XZ = BrownianMotion(z * smoothing, x * smoothing, octaves,  0.5f);
+
+        float YX = BrownianMotion(y * smoothing, x * smoothing, octaves, 0.5f);
+        float ZY = BrownianMotion(z * smoothing, y * smoothing, octaves, 0.5f);
+        float ZX = BrownianMotion(z * smoothing, x * smoothing, octaves, 0.5f);
+
+        return (XY + YZ + XZ + YX + ZY + ZX) / 6.0f;
+    }
+
+    /*public static float _BrownianMotion3D(float x, float y, float z, int octave, float persistence)
+    {
+        float _total = 0f;
+        float _frequency = 1f;
+        float _amplitude = 1f;
+        float maxValue = 0;
+
+        for (int i = 0; i < octave; i++)
+        {
+            _total += Perlin(x * _frequency * increment* 10 , y * _frequency * increment* 10, z * _frequency * increment* 10) * _amplitude;
+            maxValue += _amplitude;
+            _amplitude *= persistence;
+            _frequency *= 2;
+        }
+
+        return _total / maxValue;
+    }*/
     
-    
-    
-    
-    
-    
-    
+
     /*PERLIN NOISE CALCULATIONS*/
-    public static double Perlin(float x, float y, float z)
+    
+    public static float Perlin(float x, float y, float z)
     {
         
         if (repeat >0)
@@ -79,32 +103,41 @@ public class GenerationUtils
         int xi = (int) x & 255;
         int yi = (int) y & 255;
         int zi = (int) z & 255;
-        double xf = x - (int) x;
-        double yf = y - (int) y;
-        double zf = z - (int) z;
+        float xf = x - (int) x;
+        float yf = y - (int) y;
+        float zf = z - (int) z;
 
-        double u = Fade(xf);
-        double v = Fade(yf);
-        double w = Fade(zf);
+        float u = Fade(xf);
+        float v = Fade(yf);
+        float w = Fade(zf);
 
-        int aaa, aba, aab, abb, baa, bba, bab, bbb;
-        aaa = p[p[p[xi] + yi] + zi];
-        aba = p[p[p[xi] + Increment(yi)] + zi];
-        aab = p[p[p[xi] + yi] + Increment(zi)];
-        abb = p[p[p[xi] + Increment(yi)] + Increment(zi)];
-        baa = p[p[p[Increment(xi)] + yi] + zi];
-        bba = p[p[p[Increment(xi)] + Increment(yi)] + zi];
-        bab = p[p[p[Increment(xi)] + yi] + Increment(zi)];
-        bbb = p[p[p[Increment(xi)] + Increment(yi)] + Increment(zi)];
-
-        double x1, x2, y1, y2;
-        x1 = Lerp(Gradient(aaa, xf, yf, zf), Gradient(baa, xf - 1, yf, zf), u);
-        x2 = Lerp(Gradient(aba, xf, yf - 1, zf), Gradient(bba, xf - 1, yf - 1, zf), u);
-
-        y1 = Lerp(x1, x2, v);
-
-        x1 = Lerp(Gradient(aab, xf, yf, zf - 1), Gradient(bab, xf - 1, yf, zf - 1), u);
-        x2 = Lerp(Gradient(abb, xf, yf - 1, zf - 1), Gradient(bbb, xf - 1, yf - 1, zf - 1), u);
+      /*OLD*/  
+      // int aaa, aba, aab, abb, baa, bba, bab, bbb;
+      // aaa = p[p[p[xi] + yi] + zi];
+      // aba = p[p[p[xi] + Increment(yi)] + zi];
+      // aab = p[p[p[xi] + yi] + Increment(zi)];
+      // abb = p[p[p[xi] + Increment(yi)] + Increment(zi)];
+      // baa = p[p[p[Increment(xi)] + yi] + zi];
+      // bba = p[p[p[Increment(xi)] + Increment(yi)] + zi];
+      // bab = p[p[p[Increment(xi)] + yi] + Increment(zi)];
+      // bbb = p[p[p[Increment(xi)] + Increment(yi)] + Increment(zi)];
+        int a = (p[xi] + yi);
+        int aa = (p[a] + zi);                                             
+        int ab =( p[a + 1] + zi);                                            
+        int b = (p[xi + 1] + yi);
+        int ba = (p[b] + zi);                                             
+        int bb =( p[b + 1] + zi);                                            
+                                                                                
+                                                                                                                                                // This is where the "magic" happens.  We calculate a new set of p[] values and use that to get
+                                                                                                                                                // our final gradient values.  Then, we interpolate between those gradients with the u value to get
+        float x1, x2, y1, y2;                                                                                                                   // 4 x-values.  Next, we interpolate between the 4 x-values with v to get 2 y-values.  Finally,
+        x1 = Lerp(_Gradient(p[aa], xf, yf, zf), _Gradient(p[ba], xf - 1, yf, zf), u);                              // we interpolate between the y-values to get a z-value.
+        x2 = Lerp(_Gradient(p[ab], xf, yf - 1, zf), _Gradient(p[bb], xf - 1, yf - 1, zf), u);                      // When calculating the p[] values, remember that above, p[a+1] expands to p[xi]+yi+1 -- so you are
+                                                                                                                                                // essentially adding 1 to yi.  Likewise, p[ab+1] expands to p[p[xi]+yi+1]+zi+1] -- so you are adding
+        y1 = Lerp(x1, x2, v);                                                                                                         // to zi.  The other 3 parameters are your possible return values (see grad()), which are actually   
+                                                                                                                                                // the vectors from the edges of the unit cube to the point in the unit cube itself.
+        x1 = Lerp(_Gradient(p[aa +1], xf, yf, zf - 1), _Gradient(p[ba +1], xf - 1, yf, zf - 1), u);
+        x2 = Lerp(_Gradient(p[ab +1], xf, yf - 1, zf - 1), _Gradient(p[bb + 1], xf - 1, yf - 1, zf - 1), u);
 
         y2 = Lerp(x1, x2, w);
 
@@ -123,7 +156,7 @@ public class GenerationUtils
         129,22,39,253, 19,98,108,110,79,113,224,232,178,185, 112,104,218,246,97,228,
         251,34,242,193,238,210,144,12,191,179,162,241, 81,51,145,235,249,14,239,107,
         49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
-        138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180
+        138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180/*,151*/
     };
 
     private static int[] p;
@@ -140,7 +173,7 @@ public class GenerationUtils
     // so that they will ease towards integral values.  This ends up smoothing
     // the final output.
     // // 6t^5 - 15t^4 + 10t^3
-    public static double Fade(double t)
+    public static float Fade(float t)
     {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
@@ -154,7 +187,8 @@ public class GenerationUtils
         }
         return num;
     }
-
+    
+    /*OLD GRADIENT FUNCTION
     public static double Gradient(int hash, double x, double y, double z)
     {
         switch (hash & 0xF)
@@ -177,9 +211,33 @@ public class GenerationUtils
             case 0xF: return -y - z;
             default: return 0;
         }
+    }*/
+
+    public static float _Gradient(int hash, float x, float y, float z)
+    {
+        int h = hash & 15;                              // Take the hashed value and take the first 4 bits of it (15 == 0b1111)
+        float u = h < 8 ? x : y;                        // If the most significant bit (MSB) of the hash is 0 then set u = x.  Otherwise y.
+        float v;                                        // In Ken Perlin's original implementation this was another conditional operator (?:).
+                                                        // expanded it for readability.
+                                                        
+        if (h < 4)                                      // If the first and second significant bits are 0 set v = y
+        {                                               
+            v = y;
+        }
+        else if (h ==12 ||  h == 14)                    // If the first and second significant bits are 1 set v = x
+        {
+            v = x;
+        }
+        else                                            // If the first and second significant bits are not equal (0/1, 1/0) set v = z
+        {
+            v = z;
+        }
+
+        return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
+
     }
 
-    public static double Lerp(double a, double b, double x)
+    public static float Lerp(float a, float b, float x)
     {
         return a + x * (b - a);
     }

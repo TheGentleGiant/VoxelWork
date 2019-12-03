@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.XR.WSA;
 using Random = System.Random;
@@ -27,13 +28,28 @@ public class Chunk
                     int worldZ = (int) (z + position.z);
                     
                     //Debug.Log(GenerationUtils.GenerateHeight(worldX, worldZ));
-                    if (GenerationUtils.BrownianMotion3D(worldX, worldY, worldZ) < 0.40f)
+                    //if (GenerationUtils._BrownianMotion3D(worldX, worldY, worldZ, 3, 0.5f) < 0.40f)
+                    if (GenerationUtils.BrownianMotion3D(worldX, worldY, worldZ, 0.1f, 3) < 0.42f)
                     {
                         _chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, _chunk.gameObject, this);
                     }
                     else if (worldY <= GenerationUtils.GenerateStoneHeight(worldX, worldZ))
                     {
-                        _chunkData[x, y, z] = new Block(Block.BlockType.STONE, pos, _chunk.gameObject, this);
+                        if (GenerationUtils.BrownianMotion3D(worldX,worldY,worldZ, 0.1f, 2)< 0.4f && worldY <= 40)
+                        {
+                            _chunkData[x,y,z] = new Block(Block.BlockType.DIAMOND, pos, _chunk.gameObject, this);
+                            Debug.Log("Placing Diamonds");
+                        }
+                        else if (GenerationUtils.BrownianMotion3D(worldX, worldY, worldZ, 0.3f, 3) < 0.41f &&
+                                 worldY <= 20)
+                        {
+                            _chunkData[x,y,z] = new Block(Block.BlockType.REDSTONE, pos, _chunk.gameObject, this);
+                            Debug.Log("Placing Red stone");
+                        }
+                        else
+                        {
+                            _chunkData[x, y, z] = new Block(Block.BlockType.STONE, pos, _chunk.gameObject, this);
+                        }
                     }
                     else if (worldY == GenerationUtils.GenerateHeight(worldX, worldZ))
                     {
@@ -83,6 +99,9 @@ public class Chunk
             }
         }*/
         CombineQuads(); 
+        MeshCollider _blockCollider = _chunk.gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
+        _blockCollider.sharedMesh = _chunk.transform.GetComponent<MeshFilter>().mesh;
+
     }
 
     public Chunk(Vector3 position, Material material)
