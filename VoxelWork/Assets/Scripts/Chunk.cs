@@ -11,15 +11,9 @@ public class Chunk
     public Material _material;
     public Block[,,] _chunkData;
     public GameObject _chunk;
-
-    public enum chunckStatus
-    {
-        DRAW,
-        DONE,
-        KEEP
-    };
-
+    public enum chunckStatus { DRAW, DONE, KEEP };
     public chunckStatus status;
+    
     void BuildChunk()
     {
         _chunkData = new Block[World.chunkSize,World.chunkSize,World.chunkSize];
@@ -112,6 +106,7 @@ public class Chunk
         CombineQuads(); 
         MeshCollider _blockCollider = _chunk.gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
         _blockCollider.sharedMesh = _chunk.transform.GetComponent<MeshFilter>().mesh;
+        status = chunckStatus.DONE;
 
     }
 

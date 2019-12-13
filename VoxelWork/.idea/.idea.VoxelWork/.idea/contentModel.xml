@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\The Gentle Giant\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\The Gentle Giant\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_VoxelWork.-98778883.00" t="ExcludeRecursive" />
-    <e p="E:\Programming\VoxelWork\VoxelWork" t="IncludeRecursive">
+    <e p="C:\Users\mirel.grigore\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\mirel.grigore\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_VoxelWork.1510064369.00" t="ExcludeRecursive" />
+    <e p="D:\GitHubStuff\VoxelWork\VoxelWork\VoxelWork" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />

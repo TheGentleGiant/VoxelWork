@@ -465,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &955717301
 Camera:
   m_ObjectHideFlags: 0
@@ -556,7 +556,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -684,9 +684,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2052483207}
   textureAtlas: {fileID: 2100000, guid: ab4e30ab8843e834aa4f05ec3239ed97, type: 2}
-  slider: {fileID: 2027156698}
-  cam: {fileID: 955717301}
-  playButton: {fileID: 702020697}
 --- !u!4 &1365280482
 Transform:
   m_ObjectHideFlags: 0
@@ -719,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1369560449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,7 +815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1473800698
 MonoBehaviour:
   m_ObjectHideFlags: 0
