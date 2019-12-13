@@ -33,9 +33,10 @@ public class GenerationUtils
         float _frequency = 1f;
         float _amplitude = 1f;
         float maxValue = 0;
+        float _offset = 32000f;
         for (int i = 0; i < octave; i++)
         {
-            _total += Perlin(x * _frequency,z * _frequency, 0f) * _amplitude;
+            _total += Perlin((x+ _offset) * _frequency,(z + _offset) * _frequency, 0f) * _amplitude;
             //_total += Mathf.PerlinNoise(x *_frequency, z*_frequency) * _amplitude;
             maxValue += _amplitude;
             _amplitude *= persistence;
@@ -43,7 +44,7 @@ public class GenerationUtils
         }
 
         return _total / maxValue;
-    }
+    } 
 
     public static float BrownianMotion3D(float x, float y, float z)
     {
