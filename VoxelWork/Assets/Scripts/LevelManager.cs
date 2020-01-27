@@ -30,10 +30,4 @@ public class LevelManager : MonoBehaviour
     {
         StartCoroutine(BuildWorld());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

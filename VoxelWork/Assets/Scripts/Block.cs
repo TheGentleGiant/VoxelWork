@@ -26,7 +26,7 @@ public class Block
         AIR,
     };
     
-    private BlockType bType;
+    public BlockType bType;
     private GameObject _parent;
     private Vector3 _position;
     private Material _material;

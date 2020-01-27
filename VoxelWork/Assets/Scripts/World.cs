@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,23 +15,27 @@ public class World : MonoBehaviour
     public static int chunkSize = 16;
     public static int columnHeight = 16;
     public static int worldSize = 4;
-    public static int radius = 2;
+    public static int radius = 4;
     //public Slider slider;
     //public Camera cam;
     //public Button playButton;
     private bool isFirstInstanceBuild = true;
-    private bool isBuilding = false; 
+    private bool isBuilding = false;
+
+    public Vector3 lastRecordedBuildPosition;
+    private CoroutineQueue _queue;
+    public static uint maxCoroutinesactive = 1000;
 
     //public static Dictionary<string, Chunk> chunks;
     public static ConcurrentDictionary<string, Chunk> chunks;
-
-
+    public static List<string> chuncksToRemove = new List<string>();
+    
     public static string BuildChunkName(Vector3 position)
     {
         return (int) position.x + "_" + (int) position.y + "_" + (int) position.z;
     }
     
-#pragma region Old
+#region OldCode
     /*Old Not called upon anymore*/
     /*IEnumerator BuildChunkColumn()
     {
@@ -119,9 +124,9 @@ public class World : MonoBehaviour
 
         isBuilding = false;
     }*/
-#pragma endregion
+#endregion
 
-    void BuildChunkAt(int x, int y, int z)
+void BuildChunkAt(int x, int y, int z)
     {
         Vector3 _chunkPosition = new Vector3(x * chunkSize, y* chunkSize, z * chunkSize);
         string _chunkName = BuildChunkName(_chunkPosition);
@@ -129,21 +134,41 @@ public class World : MonoBehaviour
         if (!chunks.TryGetValue(_chunkName, out _chunk))
         {
             _chunk = new Chunk(_chunkPosition, textureAtlas);
-            _chunk._chunk.transform.parent = this.transform;
+            _chunk._chunk.transform.parent = transform;
             chunks.TryAdd(_chunk._chunk.name, _chunk);
         }
     }
 
     IEnumerator BuildRecursiveWorld(int x, int y, int z, int rad)
     {
-        
+        rad--;
         if (rad <= 0)
         {
-            Debug.Log("Radius = " + rad.ToString());
+            Debug.Log("Radius = " + rad);
             yield break;
         }
+        BuildChunkAt(x, y, z +1);
+        _queue.Run(BuildRecursiveWorld(x, y, z + 1, rad));
+        yield return null;
+        
         BuildChunkAt(x, y, z -1);
-        StartCoroutine(BuildRecursiveWorld(x, y, z - 1, rad - 1));
+        _queue.Run(BuildRecursiveWorld(x, y, z - 1, rad));
+        yield return null;
+        
+        BuildChunkAt(x+1, y, z);
+        _queue.Run(BuildRecursiveWorld(x-1, y, z , rad));
+        yield return null;
+        
+        BuildChunkAt(x- 1, y, z);
+        _queue.Run(BuildRecursiveWorld(x+ 1, y, z, rad));
+        yield return null;
+        
+        BuildChunkAt(x, y -1, z );
+        _queue.Run(BuildRecursiveWorld(x, y - 1, z, rad));
+        yield return null;
+        
+        BuildChunkAt(x, y + 1, z);
+        _queue.Run(BuildRecursiveWorld(x, y + 1 , z, rad));
         yield return null;
     }
 
@@ -155,42 +180,82 @@ public class World : MonoBehaviour
             {
                 chunk.Value.DrawChunk();
             }
+
+            if (chunk.Value._chunk && Vector3.Distance(player.transform.position, chunk.Value._chunk.transform.position)> radius*chunkSize)
+            {
+                chuncksToRemove.Add(chunk.Key);
+            }
             yield return null;
         }
     }
+    private void BuildNearPlayer()
+    {
+        StopCoroutine("BuildRecursiveWorld");
+        _queue.Run(BuildRecursiveWorld((int) (player.transform.position.x / chunkSize),
+            (int) (player.transform.position.y / chunkSize),
+            (int) (player.transform.position.z / chunkSize), radius));
+    }
 
+    IEnumerator RemoveOldChunks()
+    {
+        for (int i = 0; i < chuncksToRemove.Count; i++)
+        {
+            string chunckName = chuncksToRemove[i];
+            Chunk chunck;
+            if (chunks.TryGetValue(chunckName, out chunck))
+            {
+                Destroy(chunck._chunk);
+                chunck.Save();
+                chunks.TryRemove(chunckName, out chunck);
+                yield return null;
+            }
+        }
+    }
+    
     void Start()
     {
+        _queue = new CoroutineQueue(maxCoroutinesactive, StartCoroutine);
         GenerationUtils.perlin();
         Vector3 _playerPosition = player.transform.position;
         player.transform.position = new Vector3(_playerPosition.x,
             GenerationUtils.GenerateHeight(_playerPosition.x, _playerPosition.z) + 1, _playerPosition.z);
+        lastRecordedBuildPosition = player.transform.position;
         player.SetActive(false);
         isFirstInstanceBuild = true;
         chunks = new ConcurrentDictionary<string, Chunk>();
-        this.transform.position = Vector3.zero;
-        this.transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
         
 
         BuildChunkAt((int) (player.transform.position.x / chunkSize), (int) (player.transform.position.y/ chunkSize),
             (int) (player.transform.position.z / chunkSize));
 
-        StartCoroutine(DrawChunks());
+        _queue.Run(DrawChunks());
 
-        StartCoroutine(BuildRecursiveWorld((int) (player.transform.position.x / chunkSize),
+        _queue.Run(BuildRecursiveWorld((int) (player.transform.position.x / chunkSize),
             (int) (player.transform.position.y / chunkSize),
             (int) (player.transform.position.z / chunkSize), radius));
     }
-
     private void Update()
     {
+        Vector3 _movement = lastRecordedBuildPosition - player.transform.position;
+        if (_movement.magnitude > chunkSize)
+        {
+            lastRecordedBuildPosition = player.transform.position;
+            BuildNearPlayer();
+        }
+        
         if (!player.activeSelf)
         {
             player.SetActive(true);
             isFirstInstanceBuild = false;
         }
-        StartCoroutine(DrawChunks());
+        _queue.Run(DrawChunks());
+        _queue.Run(RemoveOldChunks());
     }
+
+
+
 //    public void StartBuild()
   //  {
         //StartCoroutine(BuildWorld());
